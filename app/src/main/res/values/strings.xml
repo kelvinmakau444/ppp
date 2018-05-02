@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">POS</string>
+    <string name="available_string">•</string>
+    <string name="dont_have_an_account"><u>Forgot Password?</u></string>
+    <string name="open">OPEN</string>
+    <string name="close">CLOSE</string>
+</resources>

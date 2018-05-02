@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="1dp"
+
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@color/cardview_light_background"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:id="@+id/foodimageIV"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Ugali matumbo"
+                android:padding="2dp"
+                android:id="@+id/foodtitleTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/circle"
+                android:id="@+id/availableIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp">
+
+            </ImageView>
+
+        </LinearLayout>
+        <TextView
+            android:layout_marginBottom="2dp"
+            android:text="Ksh 1000"
+            android:gravity="center"
+            android:textColor="@android:color/holo_orange_dark"
+            android:padding="2dp"
+            android:id="@+id/foodpriceTV"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+</LinearLayout>

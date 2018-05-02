@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:padding="4dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:id="@+id/_cartItemTitle"
+
+            android:text="Sub Total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:text="1200 Ksh"
+            android:id="@+id/_cartItemTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:padding="4dp"
+                android:layout_gravity="center"
+                android:drawableStart="@android:drawable/ic_menu_agenda"
+                android:id="@+id/_cartItemNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_menu_agenda" />
+            <TextView
+                android:layout_weight="1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:text="4"
+                android:padding="4dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:drawableStart="@drawable/ic_add"
+                android:id="@+id/_cartItemQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_remove"
+                android:drawableLeft="@drawable/ic_add"
+                android:drawableRight="@drawable/ic_remove" />
+        </LinearLayout>
+         </LinearLayout>
+
+</LinearLayout>
