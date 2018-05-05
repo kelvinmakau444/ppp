@@ -1,9 +1,11 @@
 package apps.kelvin.makau.pos.activities;
 
 
+import android.animation.Animator;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -11,11 +13,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -26,10 +34,14 @@ import apps.kelvin.makau.pos.fragments.FoodListFragment;
 import apps.kelvin.makau.pos.interfaces.FoodListListerner;
 import apps.kelvin.makau.pos.models.Food;
 import apps.kelvin.makau.pos.models.MyMenus;
+import apps.kelvin.makau.pos.util.CircleAnimationUtil;
+import apps.kelvin.makau.pos.util.MyCircleImageView;
 
 
 public class MainActivity extends AppCompatActivity implements FoodListListerner {
 
+    ArrayList<Food> cart;
+    ImageView dest;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     @Override
@@ -37,7 +49,47 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout=findViewById(R.id.drawer);
+
+        dest=findViewById(R.id.cartRL);
+        dest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (cart.size() > 0) {
+                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    int containerViewId = R.id.parent_left;
+
+                    if(findViewById(R.id.parent_right)!=null)
+                        containerViewId = R.id.parent_right;
+
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("carts",cart);
+
+
+                    FoodCartFragment foodCartFragment = new FoodCartFragment();
+                    foodCartFragment.setArguments(bundle);
+                    fragmentTransaction.replace(containerViewId,foodCartFragment);
+
+                    if(findViewById(R.id.parent_right)==null)
+                        fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                  /*  for (Food f : cart) {
+
+                        Toast.makeText(MainActivity.this, String.valueOf(f.getPrice()), Toast.LENGTH_SHORT).show();
+                    }*/
+                }
+            }
+        });
+
         ActionBar actionBar= getSupportActionBar();
+
+
+        cart= new ArrayList<>();
+
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -88,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
             FoodCartFragment foodCartFragment = new FoodCartFragment();
             transaction.add(R.id.parent_right,foodCartFragment);
         }*/
-        transaction.commit();
+       // transaction.commit();
 
 
 
@@ -128,33 +180,14 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
         return menus;
     }
 
+
+
+
     @Override
-    public void onListClick(Food f) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+      //  getMenuInflater().inflate(R.menu.menu_main,menu);
 
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        int containerViewId = R.id.parent_left;
-
-        if(findViewById(R.id.parent_right)!=null)
-            containerViewId = R.id.parent_right;
-
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("food",f);
-
-
-        FoodCartFragment foodCartFragment = new FoodCartFragment();
-        foodCartFragment.setArguments(bundle);
-        fragmentTransaction.replace(containerViewId,foodCartFragment);
-
-        if(findViewById(R.id.parent_right)==null)
-            fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-        Toast.makeText(this, f.getTitle(), Toast.LENGTH_SHORT).show();
-
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -166,8 +199,51 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
         }
         // Handle action buttons
         switch (item.getItemId()) {
+            case R.id.cart:
+
+                break;
             default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public void onListClick(Food f, View v) {
+         makeAnimation(f,v);
+
+
+    }
+
+    private void makeAnimation(final Food f, View v) {
+
+
+        new CircleAnimationUtil().attachActivity(this).setTargetView(v).setMoveDuration(1000).setDestView(dest).setAnimationListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                cart.add(f);
+
+                TextView cart_count= findViewById(R.id.cart_count);
+                cart_count.setText(String.valueOf(cart.size()));
+                Toast.makeText(MainActivity.this,"Added to cart", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        }).startAnimation();
+
+
     }
 }

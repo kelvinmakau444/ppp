@@ -71,14 +71,14 @@ holder.title.setText(food.getTitle());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View v) {
                     Food f = foods.get(getAdapterPosition());
                     f.setNotes("gfghfhg");
                     f.setQty("65");
 
 
 
-                    listernerWeakReference.get().onListClick(f);
+                    listernerWeakReference.get().onListClick(f,v);
                 }
             });
         }

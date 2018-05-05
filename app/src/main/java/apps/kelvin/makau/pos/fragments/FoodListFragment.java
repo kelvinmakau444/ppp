@@ -44,11 +44,12 @@ FoodListListerner listener;
                foodrv.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
                foodrv.setAdapter(new FoodListAdapter(getFoodList(), getActivity(), new FoodListListerner() {
                    @Override
-                   public void onListClick(Food food) {
+                   public void onListClick(Food food, View v) {
                        if(listener!=null)
-                        listener.onListClick(food);
+                           listener.onListClick(food,v);
                    }
-               }));
+                   }));
+
 
         
 

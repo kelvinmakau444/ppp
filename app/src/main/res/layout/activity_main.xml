@@ -7,11 +7,43 @@
     android:background="@color/background"
     android:id="@+id/drawer"
     tools:context=".activities.MainActivity">
-
-    <FrameLayout
+<android.support.design.widget.CoordinatorLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fragment
+        android:name="apps.kelvin.makau.pos.fragments.FoodListFragment"
         android:id="@+id/parent_left"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/cartRL"
+            android:padding="8dp"
+            android:background="@drawable/circle"
+            android:src="@drawable/ic_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="0"
+            android:id="@+id/cart_count"
+            android:textColor="#ffffff"
+            app:layout_anchor="@id/cartRL"
+            app:layout_anchorGravity="top|end"
+            android:background="@android:drawable/ic_notification_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>
     <RelativeLayout
         android:background="#eee"
         android:layout_gravity="start"

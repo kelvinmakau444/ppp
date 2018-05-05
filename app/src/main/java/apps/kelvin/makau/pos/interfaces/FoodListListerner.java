@@ -1,6 +1,8 @@
 package apps.kelvin.makau.pos.interfaces;
 
 
+import android.view.View;
+
 import apps.kelvin.makau.pos.models.Food;
 
 /**
@@ -8,7 +10,7 @@ import apps.kelvin.makau.pos.models.Food;
  */
 
 public interface FoodListListerner {
-    void onListClick(Food food);
+    void onListClick(Food food,View v);
 
 
 
