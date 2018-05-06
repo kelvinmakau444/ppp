@@ -1,14 +1,23 @@
 package apps.kelvin.makau.pos.models;
 
 public class CartItem {
+    private int id;
     private String title;
     private double price;
     private boolean available;
     private String discount;
     private String notes;
-    private String qty;
+    private String qty = "Note";
 
     public CartItem() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

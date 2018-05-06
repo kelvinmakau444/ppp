@@ -2,29 +2,20 @@ package apps.kelvin.makau.pos.activities;
 
 
 import android.animation.Animator;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -32,15 +23,16 @@ import apps.kelvin.makau.pos.R;
 import apps.kelvin.makau.pos.adapters.NavMenuAdapter;
 import apps.kelvin.makau.pos.fragments.FoodCartFragment;
 import apps.kelvin.makau.pos.fragments.FoodListFragment;
-import apps.kelvin.makau.pos.interfaces.FoodListListerner;
 import apps.kelvin.makau.pos.models.Food;
 import apps.kelvin.makau.pos.models.MyMenus;
 import apps.kelvin.makau.pos.util.CircleAnimationUtil;
-import apps.kelvin.makau.pos.util.MyCircleImageView;
 
 
-public class MainActivity extends AppCompatActivity implements FoodListListerner {
-
+public class MainActivity extends AppCompatActivity {
+    public static android.support.v4.app.Fragment fragmentL = null;
+    public static android.support.v4.app.Fragment fragmentR = null;
+    FoodCartFragment foodCartFragment;
+    private boolean isXLARGE = false;
     ArrayList<Food> cart;
     ImageView dest;
     private DrawerLayout drawerLayout;
@@ -56,17 +48,31 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
 
-
+        dest = findViewById(R.id.cartRL);
         transaction.add(R.id.parent_left, foodlistf);
-     /*   if(findViewById(R.id.parent_right)!=null){
-            FoodCartFragment foodCartFragment = new FoodCartFragment();
-            transaction.add(R.id.parent_right,foodCartFragment);
-        }*/
-        transaction.commit();
+
+        fragmentL = new FoodListFragment();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.parent_left, fragmentL, "fragmentLEFT").commit();
+
+
+        if (findViewById(R.id.parent_right) != null) {
+
+
+            fragmentR = new FoodCartFragment();
+            // android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.parent_right, fragmentR, "fragmentRIGHT").commit();
+
+            dest.setVisibility(View.GONE);
+            isXLARGE = true;
+        } else {
+            isXLARGE = false;
+        }
+        //transaction.commit();
 
 
 
-        dest=findViewById(R.id.cartRL);
+
         dest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,8 +162,23 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
 
     }
 
+    public void addToCart(Food food) {
+        if (isXLARGE) {
+            FoodCartFragment foodCartFragment = (FoodCartFragment) getSupportFragmentManager().findFragmentById(R.id.parent_right);
+            foodCartFragment.addFood(food);
+
+        } else {
+            makeAnimation(food, null);
+            //TODO DO YOUR NORMAL PHONE CART METHODS HERE IE ADD TO THE CART ICON
+        }
+
+    }
+
+    public void removeFromCart(int position) {
+
+    }
     private void setupNavMenu() {
-        ListView menu = (ListView) findViewById(R.id.nav_menu);
+        ListView menu = findViewById(R.id.nav_menu);
         ArrayList<MyMenus> menus = setMenus();
         menu.setAdapter(new NavMenuAdapter(menus,MainActivity.this));
 
@@ -215,12 +236,12 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
 
     }
 
-    @Override
-    public void onListClick(Food f, View v) {
-         makeAnimation(f,v);
-
-
-    }
+//    @Override
+//    public void onListClick(Food f, View v) {
+//         makeAnimation(f,v);
+//
+//
+//    }
 
     private void makeAnimation(final Food f, View v) {
 

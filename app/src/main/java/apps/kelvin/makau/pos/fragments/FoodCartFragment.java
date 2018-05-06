@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,14 @@ import java.util.ArrayList;
 
 import apps.kelvin.makau.pos.R;
 import apps.kelvin.makau.pos.adapters.FoodCartListAdapter;
-import apps.kelvin.makau.pos.adapters.FoodListAdapter;
+import apps.kelvin.makau.pos.interfaces.CartClickListener;
 import apps.kelvin.makau.pos.models.CartItem;
 import apps.kelvin.makau.pos.models.Food;
 
 public class FoodCartFragment extends Fragment {
     RecyclerView foodcartrv;
+    ArrayList<CartItem> list;
+    FoodCartListAdapter foodListAdapter;
     public FoodCartFragment() {
         super();
     }
@@ -36,36 +37,85 @@ public class FoodCartFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<CartItem> list = new ArrayList<>();
+        list = new ArrayList<>();
 
-        Bundle bundle = getArguments();
 
-        if(bundle.containsKey("carts")) {
-            ArrayList<Food> foods = bundle.getParcelableArrayList("carts");
-
-            for(Food food:foods) {
-                CartItem item = new CartItem();
-                item.setTitle(food.getTitle());
-                item.setPrice(food.getPrice());
-                item.setNotes(food.getNotes());
-                item.setQty(food.getQty());
-
-                list.add(item);
-            }
-        }
-            foodcartrv=view.findViewById(R.id.cartListRV);
+        foodcartrv = view.findViewById(R.id.cartListRV);
         foodcartrv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        foodcartrv.setAdapter(new FoodCartListAdapter(list,getActivity()));
+        foodListAdapter = new FoodCartListAdapter(list, getActivity(), new CartClickListener() {
+            @Override
+            public void numberPickerClicked(int pos, int value) {
+                if (list != null) {
+                    list.get(pos).setQty(String.valueOf(value));
+                    foodListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onRemove(int pos) {
+
+                removeFood(pos);
+            }
+        });
+        foodcartrv.setAdapter(foodListAdapter);
 
 
     }
 
-    //todo:fetch from some db/server
-    private ArrayList<CartItem> getFoodCartList(){
-        ArrayList<CartItem> list = new ArrayList<>(10);
+
+    public void addFood(Food food) {
+        if (isNotinList(food)) {
+            CartItem cartItem = new CartItem();
+            cartItem.setQty("1");
+            cartItem.setTitle(food.getTitle());
+            cartItem.setId(food.getId());
+            cartItem.setPrice(food.getPrice() * 1);
+
+            if (list != null) {
+                list.add(cartItem);
+            } else {
+                list = new ArrayList<>();
+                list.add(cartItem);
+            }
+            if (foodListAdapter != null) {
+                foodListAdapter.notifyDataSetChanged();
+            }
 
 
+        } else {
+            updateQty(food);
+        }
 
-       return list;
+    }
+
+    private void updateQty(Food food) {
+        if (list != null && list.size() > 0) {
+            for (int a = 0; a < list.size(); a++) {
+                if (list.get(a).getId() == food.getId()) {
+                    int qty = Integer.valueOf(list.get(a).getQty());
+                    qty++;
+                    list.get(a).setQty(String.valueOf(qty));
+                    foodListAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    private boolean isNotinList(Food food) {
+        if (list != null) {
+            for (CartItem cartItem : list) {
+                if (cartItem.getId() == food.getId()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void removeFood(int pos) {
+        if (list != null && list.size() > 0) {
+            list.remove(pos);
+            foodListAdapter.notifyDataSetChanged();
+        }
     }
 }

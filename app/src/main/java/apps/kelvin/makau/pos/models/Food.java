@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Food implements Parcelable {
+    private int id;
     private String title;
     private double price;
     private boolean available;
@@ -32,6 +33,14 @@ public class Food implements Parcelable {
 
 
     public Food() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

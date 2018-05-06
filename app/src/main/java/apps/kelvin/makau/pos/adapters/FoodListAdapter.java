@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -72,13 +71,12 @@ holder.title.setText(food.getTitle());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Food f = foods.get(getAdapterPosition());
-                    f.setNotes("gfghfhg");
-                    f.setQty("65");
+//                    Food f = foods.get(getAdapterPosition());
+//                    f.setNotes("gfghfhg");
+//                    f.setQty("65");
 
 
-
-                    listernerWeakReference.get().onListClick(f,v);
+                    listernerWeakReference.get().onListClick(getAdapterPosition());
                 }
             });
         }
