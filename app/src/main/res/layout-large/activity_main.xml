@@ -4,17 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/background"
     android:id="@+id/drawer"
     tools:context=".activities.MainActivity">
 <LinearLayout
+    android:baselineAligned="false"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
-        android:id="@+id/parent_left"
+
+    <android.support.design.widget.CoordinatorLayout
+        android:orientation="horizontal"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/parent_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cartRL"
+                android:padding="8dp"
+                android:background="@drawable/circle"
+                android:src="@drawable/ic_shopping_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="0"
+                android:id="@+id/cart_count"
+                android:textColor="#ffffff"
+                app:layout_anchor="@id/cartRL"
+                app:layout_anchorGravity="top|end"
+                android:background="@android:drawable/ic_notification_overlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.CoordinatorLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
     <FrameLayout
         android:layout_weight="1"
         android:id="@+id/parent_right"
@@ -31,6 +69,8 @@
             android:layout_height="wrap_content" />
     </FrameLayout>
 </LinearLayout>
+
+
     <RelativeLayout
         android:background="#eee"
         android:layout_gravity="start"

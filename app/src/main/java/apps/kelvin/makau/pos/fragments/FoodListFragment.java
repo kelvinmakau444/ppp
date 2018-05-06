@@ -34,7 +34,7 @@ FoodListListerner listener;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-       return inflater.inflate(R.layout.foodlist_fragment,container);
+        return inflater.inflate(R.layout.foodlist_fragment, container, false);
 
     }
 
@@ -84,82 +84,82 @@ FoodListListerner listener;
         Food one = new Food();
         one.setAvailable(true);
         one.setImage_url(R.drawable.ic_launcher);
-        one.setPrice(100);
+        one.setPrice(15);
         one.setDiscount("0");
-        one.setTitle("Chapo mix");
+        one.setTitle("Chapo");
         list.add(one);
 
         Food two = new Food();
         two.setAvailable(true);
-        two.setImage_url(R.drawable.food);
-        two.setPrice(100);
+        two.setImage_url(R.drawable.ic_launcher);
+        two.setPrice(60);
         one.setDiscount("0");
-        two.setTitle("Chapo mix");
+        two.setTitle("Githeri");
         list.add(two);
 
 
         Food three = new Food();
         three.setAvailable(true);
-        three.setImage_url(R.drawable.food);
-        three.setPrice(100);
+        three.setImage_url(R.drawable.ic_launcher);
+        three.setPrice(25);
         one.setDiscount("0");
-        three.setTitle("Chapo mix");
+        three.setTitle("Ndengu");
         list.add(three);
 
         Food four = new Food();
         four.setAvailable(true);
-        four.setImage_url(R.drawable.food);
-        four.setPrice(100);
+        four.setImage_url(R.drawable.ic_launcher);
+        four.setPrice(70);
         one.setDiscount("0");
-        four.setTitle("Chapo mix");
+        four.setTitle("Mokimo");
         list.add(four);
 
         Food five = new Food();
         five.setAvailable(true);
-        five.setImage_url(R.drawable.food);
+        five.setImage_url(R.drawable.ic_launcher);
         five.setPrice(100);
         one.setDiscount("0");
-        five.setTitle("Chapo mix");
+        five.setTitle("Beef");
         list.add(five);
 
         Food six = new Food();
         six.setAvailable(true);
-        six.setImage_url(R.drawable.food);
-        six.setPrice(1000);
+        six.setImage_url(R.drawable.ic_launcher);
+        six.setPrice(70);
         one.setDiscount("0");
-        six.setTitle("Chapo mix");
+        six.setTitle("Chips");
         list.add(six);
 
         Food seven = new Food();
         seven.setAvailable(true);
-        seven.setImage_url(R.drawable.food);
-        seven.setPrice(100);
+        seven.setImage_url(R.drawable.ic_launcher);
+        seven.setPrice(120);
         one.setDiscount("0");
-        seven.setTitle("Chapo mix");
+        seven.setTitle("Chips masala");
         list.add(seven);
 
         Food eight = new Food();
         eight.setAvailable(true);
-        eight.setImage_url(R.drawable.food);
-        eight.setPrice(100);
+        eight.setImage_url(R.drawable.ic_launcher);
+        eight.setPrice(20);
         one.setDiscount("0");
-        eight.setTitle("Chapo mix");
+        eight.setTitle("Tea");
         list.add(eight);
 
         Food nine = new Food();
         nine.setAvailable(true);
-        nine.setImage_url(R.drawable.food);
-        nine.setPrice(100);
+        nine.setImage_url(R.drawable.ic_launcher);
+        nine.setPrice(10);
         one.setDiscount("0");
-        nine.setTitle("Chapo mix");
+        nine.setTitle("Mandazi");
         list.add(nine);
 
         Food ten = new Food();
         ten.setAvailable(true);
-        ten.setImage_url(R.drawable.food);
-        ten.setPrice(100);
+        ten.setImage_url(R.drawable.ic_launcher);
+        ten.setPrice(15);
         one.setDiscount("0");
-        ten.setTitle("Chapo mix");
+        ten.setTitle("Samosa");
         list.add(ten);
 
        return list;

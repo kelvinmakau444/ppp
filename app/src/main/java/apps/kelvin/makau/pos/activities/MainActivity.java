@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,7 +49,22 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         drawerLayout=findViewById(R.id.drawer);
+
+        FoodListFragment foodlistf = new FoodListFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
+
+
+        transaction.add(R.id.parent_left, foodlistf);
+     /*   if(findViewById(R.id.parent_right)!=null){
+            FoodCartFragment foodCartFragment = new FoodCartFragment();
+            transaction.add(R.id.parent_right,foodCartFragment);
+        }*/
+        transaction.commit();
+
+
 
         dest=findViewById(R.id.cartRL);
         dest.setOnClickListener(new View.OnClickListener() {
@@ -131,16 +147,7 @@ public class MainActivity extends AppCompatActivity implements FoodListListerner
 
         }
 
-        FoodListFragment foodlistf = new FoodListFragment();
-        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction transaction= manager.beginTransaction();
 
-        transaction.add(R.id.parent_left,foodlistf);
-     /*   if(findViewById(R.id.parent_right)!=null){
-            FoodCartFragment foodCartFragment = new FoodCartFragment();
-            transaction.add(R.id.parent_right,foodCartFragment);
-        }*/
-       // transaction.commit();
 
 
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:padding="4dp"
@@ -31,23 +33,30 @@
                 android:layout_gravity="center"
                 android:drawableStart="@android:drawable/ic_menu_agenda"
                 android:id="@+id/_cartItemNotes"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@android:drawable/ic_menu_agenda" />
-            <TextView
-                android:layout_weight="1"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:text="4"
-                android:padding="4dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:drawableStart="@drawable/ic_add"
-                android:id="@+id/_cartItemQty"
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_remove"
-                android:drawableLeft="@drawable/ic_add"
-                android:drawableRight="@drawable/ic_remove" />
+                android:orientation="horizontal">
+
+
+                <com.travijuu.numberpicker.library.NumberPicker
+
+                    android:id="@+id/_cartItemQty"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    numberpicker:focusable="true"
+                    numberpicker:max="10"
+                    numberpicker:min="0"
+                    numberpicker:unit="1"
+                    numberpicker:value="1" />
+            </LinearLayout>
         </LinearLayout>
          </LinearLayout>
 

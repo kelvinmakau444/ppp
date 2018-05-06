@@ -41,7 +41,7 @@ public class FoodCartFragment extends Fragment {
         Bundle bundle = getArguments();
 
         if(bundle.containsKey("carts")) {
-            ArrayList<Food> foods = bundle.getParcelable("carts");
+            ArrayList<Food> foods = bundle.getParcelableArrayList("carts");
 
             for(Food food:foods) {
                 CartItem item = new CartItem();
@@ -56,8 +56,6 @@ public class FoodCartFragment extends Fragment {
             foodcartrv=view.findViewById(R.id.cartListRV);
         foodcartrv.setLayoutManager(new LinearLayoutManager(getActivity()));
         foodcartrv.setAdapter(new FoodCartListAdapter(list,getActivity()));
-
-
 
 
     }

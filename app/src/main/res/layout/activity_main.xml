@@ -11,8 +11,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <fragment
-        android:name="apps.kelvin.makau.pos.fragments.FoodListFragment"
+
+    <FrameLayout
         android:id="@+id/parent_left"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
