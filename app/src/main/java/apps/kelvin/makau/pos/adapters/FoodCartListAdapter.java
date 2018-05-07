@@ -3,7 +3,6 @@ package apps.kelvin.makau.pos.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +46,8 @@ LayoutInflater inflater;
         item = items.get(position);
 
 
-DecimalFormat df = new DecimalFormat("0.00");
-holder.price.setText(df.format(item.getPrice())+" Kshs");
+        DecimalFormat df = new DecimalFormat("0.00");
+        holder.price.setText(df.format(item.getPrice()) + " Kshs");
         holder.title.setText(item.getTitle());
         holder.notes.setText("Notes" + item.getNotes());
         holder.qty.setValue(Integer.valueOf(item.getQty()));
@@ -94,7 +93,7 @@ holder.price.setText(df.format(item.getPrice())+" Kshs");
             qty.setValueChangedListener(new ValueChangedListener() {
                 @Override
                 public void valueChanged(int value, ActionEnum action) {
-                    Log.d("numbv", value + "  Chna");
+
                     listernerWeakReference.get().numberPickerClicked(getAdapterPosition(), value);
                 }
             });

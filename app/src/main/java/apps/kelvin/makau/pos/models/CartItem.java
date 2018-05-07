@@ -5,7 +5,7 @@ public class CartItem {
     private String title;
     private double price;
     private boolean available;
-    private String discount;
+    private double discount;
     private String notes;
     private String qty = "Note";
 
@@ -44,11 +44,11 @@ public class CartItem {
         this.available = available;
     }
 
-    public String getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

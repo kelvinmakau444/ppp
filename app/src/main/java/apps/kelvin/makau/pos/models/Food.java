@@ -8,7 +8,7 @@ public class Food implements Parcelable {
     private String title;
     private double price;
     private boolean available;
-    private String discount;
+    private double discount;
     //todo :change to string img_url
     private int image_url;
     private String notes;
@@ -47,12 +47,18 @@ public class Food implements Parcelable {
         return title;
     }
 
-    public String getDiscount() {
-        return discount;
+    protected Food(Parcel in) {
+        this.title = in.readString();
+        this.price = in.readDouble();
+        this.available = in.readByte() != 0;
+        this.discount = in.readDouble();
+        this.image_url = in.readInt();
+        this.notes = in.readString();
+        this.qty = in.readString();
     }
 
-    public void setDiscount(String discount) {
-        this.discount = discount;
+    public double getDiscount() {
+        return discount;
     }
 
     public void setTitle(String title) {
@@ -88,25 +94,19 @@ public class Food implements Parcelable {
         return 0;
     }
 
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
         dest.writeDouble(this.price);
         dest.writeByte(this.available ? (byte) 1 : (byte) 0);
-        dest.writeString(this.discount);
+        dest.writeDouble(this.discount);
         dest.writeInt(this.image_url);
         dest.writeString(this.notes);
         dest.writeString(this.qty);
-    }
-
-    protected Food(Parcel in) {
-        this.title = in.readString();
-        this.price = in.readDouble();
-        this.available = in.readByte() != 0;
-        this.discount = in.readString();
-        this.image_url = in.readInt();
-        this.notes = in.readString();
-        this.qty = in.readString();
     }
 
     public static final Creator<Food> CREATOR = new Creator<Food>() {

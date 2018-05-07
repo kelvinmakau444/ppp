@@ -3,10 +3,13 @@ package apps.kelvin.makau.pos.activities;
 
 import android.animation.Animator;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +26,7 @@ import apps.kelvin.makau.pos.R;
 import apps.kelvin.makau.pos.adapters.NavMenuAdapter;
 import apps.kelvin.makau.pos.fragments.FoodCartFragment;
 import apps.kelvin.makau.pos.fragments.FoodListFragment;
+import apps.kelvin.makau.pos.models.CartItem;
 import apps.kelvin.makau.pos.models.Food;
 import apps.kelvin.makau.pos.models.MyMenus;
 import apps.kelvin.makau.pos.util.CircleAnimationUtil;
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     public static android.support.v4.app.Fragment fragmentL = null;
     public static android.support.v4.app.Fragment fragmentR = null;
     FoodCartFragment foodCartFragment;
+    ArrayList<CartItem> items;
+    ArrayList<CartItem> list;
+    CartItem item;
     private boolean isXLARGE = false;
     ArrayList<Food> cart;
     ImageView dest;
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             fragmentR = new FoodCartFragment();
             // android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.parent_right, fragmentR, "fragmentRIGHT").commit();
+            fragmentManager.beginTransaction().replace(R.id.parent_right, fragmentR, "FRAGMENTCART").commit();
 
             dest.setVisibility(View.GONE);
             isXLARGE = true;
@@ -78,31 +85,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (cart.size() > 0) {
-                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    int containerViewId = R.id.parent_left;
-
-                    if(findViewById(R.id.parent_right)!=null)
-                        containerViewId = R.id.parent_right;
-
-
+                    fragmentR = new FoodCartFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("carts",cart);
-
-
-                    FoodCartFragment foodCartFragment = new FoodCartFragment();
-                    foodCartFragment.setArguments(bundle);
-                    fragmentTransaction.replace(containerViewId,foodCartFragment);
-
-                    if(findViewById(R.id.parent_right)==null)
-                        fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                  /*  for (Food f : cart) {
-
-                        Toast.makeText(MainActivity.this, String.valueOf(f.getPrice()), Toast.LENGTH_SHORT).show();
-                    }*/
+                    bundle.putSerializable("data", list);
+                    fragmentR.setArguments(bundle);
+                    setFragment(fragmentR);
                 }
             }
         });
@@ -163,15 +150,109 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addToCart(Food food) {
-        if (isXLARGE) {
-            FoodCartFragment foodCartFragment = (FoodCartFragment) getSupportFragmentManager().findFragmentById(R.id.parent_right);
-            foodCartFragment.addFood(food);
+//        if (isXLARGE) {
+//            FoodCartFragment foodCartFragment = (FoodCartFragment) getSupportFragmentManager().findFragmentById(R.id.parent_right);
+//            foodCartFragment.addFood(food);
+//
+//        } else {
+//            makeAnimation(food, dest);
+//            addFood(food);
+//            //TODO DO YOUR NORMAL PHONE CART METHODS HERE IE ADD TO THE CART ICON
+//        }
+        addFood(food);
 
-        } else {
-            makeAnimation(food, null);
-            //TODO DO YOUR NORMAL PHONE CART METHODS HERE IE ADD TO THE CART ICON
+    }
+
+    public void addFood(Food food) {
+        if (!isXLARGE) {
+            makeAnimation(food, dest);
         }
 
+
+        if (isNotinList(food)) {
+            CartItem cartItem = new CartItem();
+            cartItem.setQty("1");
+            cartItem.setDiscount(food.getDiscount());
+            cartItem.setTitle(food.getTitle());
+            cartItem.setId(food.getId());
+            cartItem.setPrice(food.getPrice() * 1);
+
+            if (list != null) {
+                list.add(cartItem);
+            } else {
+                list = new ArrayList<>();
+                list.add(cartItem);
+            }
+
+            refreshCart(list);
+
+
+        } else {
+            updateQty(food);
+
+            refreshCart(list);
+        }
+
+    }
+
+    private void refreshCart(ArrayList<CartItem> list) {
+//        if(isXLARGE) {
+//            FoodCartFragment foodCartFragment = (FoodCartFragment)getSupportFragmentManager().findFragmentById(R.id.parent_right);
+//            foodCartFragment.refresh(list);
+//        }
+        //else {
+        Log.d("remove", " refresh list size " + list.size());
+        FoodCartFragment foodCartFragment = (FoodCartFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENTCART");
+        if (foodCartFragment != null) {
+            foodCartFragment.refresh(list);
+        }
+        //}
+    }
+
+    private void refresh(ArrayList<CartItem> list) {
+        FoodCartFragment foodCartFragment = (FoodCartFragment) getSupportFragmentManager().findFragmentById(R.id.parent_left);
+        foodCartFragment.refresh(list);
+
+    }
+
+    private void updateQty(Food food) {
+        if (list != null && list.size() > 0) {
+            for (int a = 0; a < list.size(); a++) {
+                if (list.get(a).getId() == food.getId()) {
+                    int qty = Integer.valueOf(list.get(a).getQty());
+                    qty++;
+                    list.get(a).setQty(String.valueOf(qty));
+                    refreshCart(list);
+                }
+            }
+        }
+    }
+
+    private boolean isNotinList(Food food) {
+        if (list != null) {
+            for (CartItem cartItem : list) {
+                if (cartItem.getId() == food.getId()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void removeFood(int id) {
+        Log.d("remove", " AT Main " + id);
+
+        if (list != null && list.size() > 0) {
+            for (int a = 0; a < list.size(); a++) {
+                if (list.get(a).getId() == id) {
+                    Log.d("remove", " removing " + a);
+
+                    list.remove(a);
+                }
+
+            }
+            refreshCart(list);
+        }
     }
 
     public void removeFromCart(int position) {
@@ -273,5 +354,18 @@ public class MainActivity extends AppCompatActivity {
         }).startAnimation();
 
 
+    }
+
+    void setFragment(Fragment fragment) {
+        // fragment = new FragmentSearch();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.parent_left, fragment, "FRAGMENTCART").commit();
+    }
+
+    void popOutFragments() {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
+        }
     }
 }

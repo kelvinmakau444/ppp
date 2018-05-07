@@ -83,7 +83,7 @@ public class FoodListFragment extends Fragment {
         one.setImage_url(R.drawable.ic_launcher);
         one.setPrice(15);
         one.setId(1);
-        one.setDiscount("0");
+        one.setDiscount(2.0);
         one.setTitle("Chapo");
         list.add(one);
 
@@ -92,7 +92,7 @@ public class FoodListFragment extends Fragment {
         two.setImage_url(R.drawable.ic_launcher);
         two.setPrice(60);
         two.setId(2);
-        one.setDiscount("0");
+        two.setDiscount(0);
         two.setTitle("Githeri");
         list.add(two);
 
@@ -103,7 +103,7 @@ public class FoodListFragment extends Fragment {
         three.setImage_url(R.drawable.ic_launcher);
         three.setPrice(25);
         three.setId(3);
-        one.setDiscount("0");
+        three.setDiscount(5.0);
         three.setTitle("Ndengu");
         list.add(three);
 
@@ -112,7 +112,7 @@ public class FoodListFragment extends Fragment {
         four.setImage_url(R.drawable.ic_launcher);
         four.setPrice(70);
         four.setId(4);
-        one.setDiscount("0");
+        four.setDiscount(10.0);
         four.setTitle("Mokimo");
         list.add(four);
 
@@ -121,7 +121,7 @@ public class FoodListFragment extends Fragment {
         five.setImage_url(R.drawable.ic_launcher);
         five.setPrice(100);
         five.setId(5);
-        five.setDiscount("0");
+        five.setDiscount(15.0);
         five.setTitle("Beef");
         list.add(five);
 
@@ -130,7 +130,7 @@ public class FoodListFragment extends Fragment {
         six.setImage_url(R.drawable.ic_launcher);
         six.setPrice(70);
         six.setId(6);
-        one.setDiscount("0");
+        six.setDiscount(7.0);
         six.setTitle("Chips");
         list.add(six);
 
@@ -139,7 +139,7 @@ public class FoodListFragment extends Fragment {
         seven.setImage_url(R.drawable.ic_launcher);
         seven.setPrice(120);
         seven.setId(7);
-        one.setDiscount("0");
+        seven.setDiscount(20.0);
         seven.setTitle("Chips masala");
         list.add(seven);
 
@@ -148,7 +148,7 @@ public class FoodListFragment extends Fragment {
         eight.setImage_url(R.drawable.ic_launcher);
         eight.setPrice(20);
         eight.setId(8);
-        one.setDiscount("0");
+        eight.setDiscount(0);
         eight.setTitle("Tea");
         list.add(eight);
 
@@ -157,7 +157,7 @@ public class FoodListFragment extends Fragment {
         nine.setImage_url(R.drawable.ic_launcher);
         nine.setPrice(10);
         nine.setId(9);
-        one.setDiscount("0");
+        nine.setDiscount(0);
         nine.setTitle("Mandazi");
         list.add(nine);
 
@@ -166,7 +166,7 @@ public class FoodListFragment extends Fragment {
         ten.setImage_url(R.drawable.ic_launcher);
         ten.setPrice(15);
         ten.setId(10);
-        one.setDiscount("0");
+        ten.setDiscount(1.0);
         ten.setTitle("Samosa");
         list.add(ten);
 
