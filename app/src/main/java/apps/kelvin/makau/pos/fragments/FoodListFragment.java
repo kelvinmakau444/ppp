@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class FoodListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
                foodrv=view.findViewById(R.id.foodlistRV);
         final ArrayList<Food> foods = getFoodList();
-               foodrv.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+               foodrv.setLayoutManager(new GridLayoutManager(getActivity().getApplication(),3));
         foodrv.setAdapter(new FoodListAdapter(foods, getActivity(), new FoodListListerner() {
                    @Override
                    public void onListClick(int pos) {
@@ -80,16 +81,16 @@ public class FoodListFragment extends Fragment {
         ArrayList<Food> list = new ArrayList<>(10);
         Food one = new Food();
         one.setAvailable(true);
-        one.setImage_url(R.drawable.ic_launcher);
+        one.setImage_url(R.drawable.beans);
         one.setPrice(15);
         one.setId(1);
         one.setDiscount(2.0);
-        one.setTitle("Chapo");
+        one.setTitle("Beans");
         list.add(one);
 
         Food two = new Food();
         two.setAvailable(true);
-        two.setImage_url(R.drawable.ic_launcher);
+        two.setImage_url(R.drawable.githeri);
         two.setPrice(60);
         two.setId(2);
         two.setDiscount(0);
@@ -100,16 +101,16 @@ public class FoodListFragment extends Fragment {
         Food three = new Food();
         three.setAvailable(true);
 
-        three.setImage_url(R.drawable.ic_launcher);
+        three.setImage_url(R.drawable.ugali_sukuma);
         three.setPrice(25);
         three.setId(3);
         three.setDiscount(5.0);
-        three.setTitle("Ndengu");
+        three.setTitle("Ugali");
         list.add(three);
 
         Food four = new Food();
         four.setAvailable(true);
-        four.setImage_url(R.drawable.ic_launcher);
+        four.setImage_url(R.drawable.mokimo);
         four.setPrice(70);
         four.setId(4);
         four.setDiscount(10.0);
@@ -118,7 +119,7 @@ public class FoodListFragment extends Fragment {
 
         Food five = new Food();
         five.setAvailable(true);
-        five.setImage_url(R.drawable.ic_launcher);
+        five.setImage_url(R.drawable.beef);
         five.setPrice(100);
         five.setId(5);
         five.setDiscount(15.0);
@@ -127,7 +128,7 @@ public class FoodListFragment extends Fragment {
 
         Food six = new Food();
         six.setAvailable(true);
-        six.setImage_url(R.drawable.ic_launcher);
+        six.setImage_url(R.drawable.chips);
         six.setPrice(70);
         six.setId(6);
         six.setDiscount(7.0);
@@ -136,16 +137,16 @@ public class FoodListFragment extends Fragment {
 
         Food seven = new Food();
         seven.setAvailable(true);
-        seven.setImage_url(R.drawable.ic_launcher);
+        seven.setImage_url(R.drawable.pilau);
         seven.setPrice(120);
         seven.setId(7);
         seven.setDiscount(20.0);
-        seven.setTitle("Chips masala");
+        seven.setTitle("Pilau");
         list.add(seven);
 
         Food eight = new Food();
         eight.setAvailable(true);
-        eight.setImage_url(R.drawable.ic_launcher);
+        eight.setImage_url(R.drawable.tea);
         eight.setPrice(20);
         eight.setId(8);
         eight.setDiscount(0);
@@ -154,11 +155,11 @@ public class FoodListFragment extends Fragment {
 
         Food nine = new Food();
         nine.setAvailable(true);
-        nine.setImage_url(R.drawable.ic_launcher);
+        nine.setImage_url(R.drawable.chapati);
         nine.setPrice(10);
         nine.setId(9);
         nine.setDiscount(0);
-        nine.setTitle("Mandazi");
+        nine.setTitle("Chapati");
         list.add(nine);
 
         Food ten = new Food();
